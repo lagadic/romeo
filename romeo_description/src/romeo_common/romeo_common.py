@@ -94,42 +94,42 @@ accelBody = "base_link"
 
 
 halfSitting = { #TODO
-  "NeckPitch:" 0., 
-  "HeadPitch:" 0.,
-  "HeadRoll:" 0., 
-  "LHipYaw:" 0., 
-  "LHipRoll:" 0., 
-  "LHipPitch:" -0.0929, 
-  "LKneePitch:" 0.2565, 
-  "LAnklePitch:" -0.163522, 
-  "LAnkleRoll:" 0., 
-  "RHipYaw:" 0., 
-  "RHipRoll" 0., 
-  "RHipPitch:" -0.0929,  
-  "RKneePitch:" 0.2565, 
-  "RAnklePitch:"-0.163522, 
-  "RAnkleRoll:" 0., 
-  "TrunkYaw:" 0., 
-  "LShoulderPitch:" 1.75, 
-  "LShoulderYaw:" 0., 
-  "LElbowRoll:" -1.30, 
-  "LElbowYaw:" -0.35, 
-  "LWristRoll:" 0., 
-  "LWristYaw:" 0., 
-  "LWristPitch:" 0., 
-  "LHand:" 0., 
-  "RShoulderPitch:" 1.75, 
-  "RShoulderYaw:" 0., 
-  "RElbowRoll:" 1.30, 
-  "RElbowYaw:" 0.17, 
-  "RWristRoll:" 0.35, 
-  "RWristYaw:" 0., 
-  "RWristPitch:" 0., 
-  "RHand:" 0., 
-  "LEyeYaw:" 0., 
-  "LEyePitch:" 0., 
-  "REyeYaw:" 0., 
-  "REyePitch:" 0., 
+  "NeckPitch": 0., 
+  "HeadPitch": 0.,
+  "HeadRoll": 0., 
+  "LHipYaw": 0., 
+  "LHipRoll": 0., 
+  "LHipPitch": -0.0929, 
+  "LKneePitch": 0.2565, 
+  "LAnklePitch": -0.163522, 
+  "LAnkleRoll": 0., 
+  "RHipYaw": 0., 
+  "RHipRoll": 0., 
+  "RHipPitch": -0.0929,  
+  "RKneePitch": 0.2565, 
+  "RAnklePitch":-0.163522, 
+  "RAnkleRoll": 0., 
+  "TrunkYaw": 0., 
+  "LShoulderPitch": 1.75, 
+  "LShoulderYaw": 0., 
+  "LElbowRoll": -1.30, 
+  "LElbowYaw": -0.35, 
+  "LWristRoll": 0., 
+  "LWristYaw": 0., 
+  "LWristPitch": 0., 
+  "LHand": 0., 
+  "RShoulderPitch": 1.75, 
+  "RShoulderYaw": 0., 
+  "RElbowRoll": 1.30, 
+  "RElbowYaw": 0.17, 
+  "RWristRoll": 0.35, 
+  "RWristYaw": 0., 
+  "RWristPitch": 0., 
+  "RHand": 0., 
+  "LEyeYaw": 0., 
+  "LEyePitch": 0., 
+  "REyeYaw": 0., 
+  "REyePitch": 0., 
   "LFinger11": 0.,
   "LFinger12": 0.,
   "LFinger13": 0.,
@@ -206,12 +206,13 @@ def stdCollisionsFiles(mb):
   """Return the standard collision file name without the convex/stpbv suffix."""
   # {name: (bodyName, filename)}
   fileByBodyName = {b.name():(b.name(), b.name().replace('_LINK', '')) for b in mb.bodies()}
+
   def addBody(bodyName, file):
     fileByBodyName[bodyName] = (bodyName, file)
 
-  addBody('LThumb1_link', 'LThumb1') #FIXME
-  addBody('LThumb2_link', 'LThumb2')
-  addBody('LThumb3_link', 'LThumb3')
+  # addBody('LThumb1_link', 'LThumb1') #FIXME
+  # addBody('LThumb2_link', 'LThumb2')
+  # addBody('LThumb3_link', 'LThumb3')
 
   return fileByBodyName
 
@@ -225,6 +226,8 @@ def convexHull(files, mb):
 
   convexFiles = {name: (bodyName, os.path.join(convexPath, filename + '-ch.txt'))
                  for name, (bodyName, filename) in files.iteritems()}
+  print "convex", convexFiles
+  print 'nr bodies', mb.nrBodies()
   return convexFiles
 
 
