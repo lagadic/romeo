@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<robot name="Rfoot">
+  <link name="base_link" />
+
+    <link name="RAnkleRollBasic">
+    <visual>
+      <geometry>
+        <mesh filename="package://mc_env_description/meshes/Rfoot/RAnkleRollBasic.stl" />
+      </geometry>
+      <material name="SecondarySkin">
+        <color rgba="0.5882349610328674 0.5882349610328674 0.5882349610328674 1" />
+      </material>
+    </visual>
+
+  </link>
+  <joint name="RAnkleRollBasic" type="fixed">
+    <parent link="base_link" />
+    <child link="RAnkleRollBasic" />
+    <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0" />
+  </joint>
+
+</robot>

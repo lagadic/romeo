@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<robot name="Lfoot">
+  <link name="base_link" />
+
+    <link name="LAnkleRollBasic">
+    <visual>
+      <geometry>
+        <mesh filename="package://mc_env_description/meshes/Lfoot/LAnkleRollBasic.stl" />
+      </geometry>
+      <material name="MainSkin.001">
+        <color rgba="1.0 1.0 1.0 1" />
+      </material>
+    </visual>
+
+  </link>
+  <joint name="LAnkleRollBasic" type="fixed">
+    <parent link="base_link" />
+    <child link="LAnkleRollBasic" />
+    <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0" />
+  </joint>
+
+</robot>
