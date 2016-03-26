@@ -88,12 +88,13 @@ forceSensors = [
 ]
 
 
-rootBody = 'base_link'
+rootBody = 'torso'
 
-accelBody = "base_link"
+accelBody = "torso"
 
 
 halfSitting = { #TODO
+  "NeckYaw": 0.,
   "NeckPitch": 0., 
   "HeadPitch": 0.,
   "HeadRoll": 0., 
@@ -142,7 +143,6 @@ halfSitting = { #TODO
   "LThumb1": 0.,
   "LThumb2": 0.,
   "LThumb3": 0.,
-  "LHand": 1.,
   "RFinger11": 0.,
   "RFinger12": 0.,
   "RFinger13": 0.,
@@ -155,7 +155,6 @@ halfSitting = { #TODO
   "RThumb1": 0.,
   "RThumb2": 0.,
   "RThumb3": 0.,
-  "RHand": 1.
 }
 
 
@@ -168,6 +167,8 @@ def readUrdf(robotName, rootBodyName,  filteredJoints, mergedJoints,
     mc_rbdyn_urdf.rbdyn_from_urdf(urdf, fixed=True)
 
   # sort half sitting by id
+  print 'GIO rootBodyId ==========', rootBodyName
+  print 'GIO Starting halfSittingById =========='
   rootBodyId = mbg.bodyIdByName(rootBodyName)
   halfSittingById = []
   for name, value in halfSittingByName.items():
@@ -177,15 +178,26 @@ def readUrdf(robotName, rootBodyName,  filteredJoints, mergedJoints,
     except Exception:
       pass
 
+  print 'GIO halfSittingById ==========', halfSittingById
+  print 'GIO nr bodies ++++++++++++++++++++++++++++', mb.nrBodies()
+  print 'GIO filteredJoints ++++++++++++++++++++++++++++', filteredJoints
+  print 'GIO &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
+  print 'GIO mbg.nrNodes ++++++++++++++++++++++++++++', mbg.nrNodes()
   # remove filtered joints and merge joints with theirs parents
   mbg.removeJoints(rootBodyId, filteredJoints)
+  print 'GIO &&&&&&&&&&&&&&&&&&&&& removeJoints &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
+  print 'GIO mbg.nrNodes ++++++++++++++++++++++++++++', mbg.nrNodes()
   for mj in mergedJoints:
     mbg.mergeSubBodies(rootBodyId, mj, halfSittingById)
-
   # regenerate the MultiBody and the MultiBodyConfig
+  print 'GIO mergedJoints ++++++++++++++++++++++++++++', mergedJoints
+  print 'GIO &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
+  print 'GIO mbg.nrNodes ++++++++++++++++++++++++++++', mbg.nrNodes()
+  print 'GIO rootBodyId ==========', rootBodyId
   mb = mbg.makeMultiBody(rootBodyId, True)
   mbc = rbd.MultiBodyConfig(mb)
   mbc.zero(mb)
+  print 'GIO nr bodies ---------------------------', mb.nrBodies()
   return mb, mbc, mbg, limits, visual_tf, collision_tf
 
 
@@ -213,6 +225,38 @@ def stdCollisionsFiles(mb):
   # addBody('LThumb1_link', 'LThumb1') #FIXME
   # addBody('LThumb2_link', 'LThumb2')
   # addBody('LThumb3_link', 'LThumb3')
+  addBody('LThigh', 'LHipPitch')
+  addBody('RThigh', 'RHipPitch')
+  addBody('l_gripper', 'LWristPitch') #FIXME
+  addBody('r_gripper', 'LWristPitch') #FIXME
+  addBody('LHipYaw_link', 'LHipPitch') #FIXME
+  addBody('RHipYaw_link', 'RHipPitch') #FIXME
+  addBody('RWristYaw_link', 'RWristYaw') #FIXME
+  addBody('LWristYaw_link', 'LWristYaw') #FIXME
+  addBody('RAnklePitch_link', 'RAnkleRoll') #FIXME
+  addBody('LAnklePitch_link', 'LAnkleRoll') #FIXME
+  addBody('r_ankle', 'RAnkleRoll') #FIXME
+  addBody('l_ankle', 'LAnkleRoll') #FIXME
+  addBody('l_wrist', 'LWristPitch') #FIXME
+  addBody('r_wrist', 'RWristPitch') #FIXME
+  addBody('LTibia', 'LKneePitch') #FIXME
+  addBody('RTibia', 'RKneePitch') #FIXME
+  addBody('RShoulderYaw_link', 'RShoulderYaw') #FIXME
+  addBody('LShoulderYaw_link', 'LShoulderYaw') #FIXME
+  addBody('LElbow', 'LElbowYaw') #FIXME
+  addBody('RElbow', 'RElbowYaw') #FIXME
+  addBody('body', 'TrunkYaw') #FIXME
+  addBody('LForeArm', 'LElbowYaw') #FIXME
+  addBody('RForeArm', 'RElbowYaw') #FIXME
+  addBody('RHip', 'RHipPitch') #FIXME
+  addBody('LHip', 'LHipPitch') #FIXME
+  addBody('LShoulder', 'LShoulderYaw') #FIXME
+  addBody('RShoulder', 'RShoulderYaw') #FIXME
+
+  addBody('LWristRoll_link', 'LWristRoll') #FIXME
+  addBody('RWristRoll_link', 'RWristRoll') #FIXME
+
+  addBody('torso', 'Torso') #FIXME
 
   return fileByBodyName
 
