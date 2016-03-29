@@ -158,13 +158,13 @@ halfSitting = { #TODO
 }
 
 
-def readUrdf(robotName, rootBodyName,  filteredJoints, mergedJoints,
+def readUrdf(robotName, rootBodyName, filteredJoints, mergedJoints,
              halfSittingByName):
   # read romeo urdf
   urdfPath = '%s/urdf/%s.urdf' % (path, robotName)
   urdf = open(urdfPath, 'r').read()
   mb, mbc, mbg, limits, visual_tf, collision_tf =\
-    mc_rbdyn_urdf.rbdyn_from_urdf(urdf, fixed=True)
+    mc_rbdyn_urdf.rbdyn_from_urdf(urdf, fixed=False, baseLink='base_link')
 
   # sort half sitting by id
   print 'GIO rootBodyId ==========', rootBodyName
@@ -194,7 +194,7 @@ def readUrdf(robotName, rootBodyName,  filteredJoints, mergedJoints,
   print 'GIO &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
   print 'GIO mbg.nrNodes ++++++++++++++++++++++++++++', mbg.nrNodes()
   print 'GIO rootBodyId ==========', rootBodyId
-  mb = mbg.makeMultiBody(rootBodyId, True)
+  mb = mbg.makeMultiBody(rootBodyId, False)
   mbc = rbd.MultiBodyConfig(mb)
   mbc.zero(mb)
   print 'GIO nr bodies ---------------------------', mb.nrBodies()
@@ -217,46 +217,95 @@ def nominalBounds(limits):
 def stdCollisionsFiles(mb):
   """Return the standard collision file name without the convex/stpbv suffix."""
   # {name: (bodyName, filename)}
-  fileByBodyName = {b.name():(b.name(), b.name().replace('_LINK', '')) for b in mb.bodies()}
+  fileByBodyName = {b.name():(b.name(), b.name().replace('_link', '')) for b in mb.bodies()}
 
   def addBody(bodyName, file):
     fileByBodyName[bodyName] = (bodyName, file)
-
-  # addBody('LThumb1_link', 'LThumb1') #FIXME
-  # addBody('LThumb2_link', 'LThumb2')
-  # addBody('LThumb3_link', 'LThumb3')
-  addBody('LThigh', 'LHipPitch')
+    
+  # The mismatched names of the Body and convex files
+  addBody('body', 'TrunkYaw')
+  addBody('torso', 'Torso')
+  
+  addBody('LThigh', 'LHipPitch')  
   addBody('RThigh', 'RHipPitch')
-  addBody('l_gripper', 'LWristPitch') #FIXME
-  addBody('r_gripper', 'LWristPitch') #FIXME
-  addBody('LHipYaw_link', 'LHipPitch') #FIXME
-  addBody('RHipYaw_link', 'RHipPitch') #FIXME
-  addBody('RWristYaw_link', 'RWristYaw') #FIXME
-  addBody('LWristYaw_link', 'LWristYaw') #FIXME
-  addBody('RAnklePitch_link', 'RAnkleRoll') #FIXME
-  addBody('LAnklePitch_link', 'LAnkleRoll') #FIXME
-  addBody('r_ankle', 'RAnkleRoll') #FIXME
-  addBody('l_ankle', 'LAnkleRoll') #FIXME
-  addBody('l_wrist', 'LWristPitch') #FIXME
-  addBody('r_wrist', 'RWristPitch') #FIXME
-  addBody('LTibia', 'LKneePitch') #FIXME
-  addBody('RTibia', 'RKneePitch') #FIXME
-  addBody('RShoulderYaw_link', 'RShoulderYaw') #FIXME
-  addBody('LShoulderYaw_link', 'LShoulderYaw') #FIXME
-  addBody('LElbow', 'LElbowYaw') #FIXME
-  addBody('RElbow', 'RElbowYaw') #FIXME
-  addBody('body', 'TrunkYaw') #FIXME
-  addBody('LForeArm', 'LElbowYaw') #FIXME
-  addBody('RForeArm', 'RElbowYaw') #FIXME
-  addBody('RHip', 'RHipPitch') #FIXME
-  addBody('LHip', 'LHipPitch') #FIXME
-  addBody('LShoulder', 'LShoulderYaw') #FIXME
-  addBody('RShoulder', 'RShoulderYaw') #FIXME
+  
+  addBody('LTibia', 'LKneePitch')
+  addBody('RTibia', 'RKneePitch')
 
-  addBody('LWristRoll_link', 'LWristRoll') #FIXME
-  addBody('RWristRoll_link', 'RWristRoll') #FIXME
+  addBody('l_ankle', 'LAnkleRoll')
+  addBody('r_ankle', 'RAnkleRollBasic') #TODO: why Basic?
+  
+  addBody('l_wrist', 'LWristPitch')
+  addBody('r_wrist', 'RWristPitch')
+  
+  addBody('LElbow', 'LElbowYaw')
+  addBody('RElbow', 'RElbowYaw')
+  
 
-  addBody('torso', 'Torso') #FIXME
+  #TODO: unsure, no daes for these? took the next closest instead
+  addBody('HeadPitch_link', 'HeadRoll')
+  addBody('NeckYaw_link', 'NeckPitch') 
+
+  addBody('LShoulder', 'LShoulderYaw')
+  addBody('RShoulder', 'RShoulderYaw')
+  
+  addBody('LForeArm', 'LElbowYaw')
+  addBody('RForeArm', 'RElbowYaw')
+  
+  addBody('LEyeYaw_link', 'LEye')
+  addBody('REyeYaw_link', 'REye')
+
+  addBody('LHipYaw_link', 'LHipPitch')  
+  addBody('RHipYaw_link', 'RHipPitch')
+  
+  addBody('LHip', 'LHipPitch')
+  addBody('RHip', 'RHipPitch')
+  
+  addBody('LAnklePitch_link', 'LAnkleRoll')
+  addBody('RAnklePitch_link', 'RAnkleRollBasic') #TODO: why Basic?
+
+  #TODO: handle with merging the hand and fingers
+  addBody('l_gripper', 'LThumb1') 
+  addBody('r_gripper', 'RThumb1')
+
+  # loop over all the fingers
+  for side in ['L','R']:
+    for n in range(1,4):
+      for m in range(1,4):
+        num = str(n)+str(m)
+        addBody((side+'Finger'+num+'_link'), (side+'Finger'+num)) 
+
+
+#  addBody('l_gripper', 'LWristPitch') #FIXME
+#  addBody('r_gripper', 'LWristPitch') #FIXME
+#  addBody('LHipYaw_link', 'LHipPitch') #FIXME
+#  addBody('RHipYaw_link', 'RHipPitch') #FIXME
+#  addBody('RWristYaw_link', 'RWristYaw') #FIXME
+#  addBody('LWristYaw_link', 'LWristYaw') #FIXME
+#  addBody('RAnklePitch_link', 'RAnkleRoll') #FIXME
+#  addBody('LAnklePitch_link', 'LAnkleRoll') #FIXME
+#  addBody('r_ankle', 'RAnkleRoll') #FIXME
+#  addBody('l_ankle', 'LAnkleRoll') #FIXME
+#  addBody('l_wrist', 'LWristPitch') #FIXME
+#  addBody('r_wrist', 'RWristPitch') #FIXME
+#  addBody('LTibia', 'LKneePitch') #FIXME
+#  addBody('RTibia', 'RKneePitch') #FIXME
+#  addBody('RShoulderYaw_link', 'RShoulderYaw') #FIXME
+#  addBody('LShoulderYaw_link', 'LShoulderYaw') #FIXME
+#  addBody('LElbow', 'LElbowYaw') #FIXME
+#  addBody('RElbow', 'RElbowYaw') #FIXME
+#  addBody('body', 'TrunkYaw') #FIXME
+#  addBody('LForeArm', 'LElbowYaw') #FIXME
+#  addBody('RForeArm', 'RElbowYaw') #FIXME
+#  addBody('RHip', 'RHipPitch') #FIXME
+#  addBody('LHip', 'LHipPitch') #FIXME
+#  addBody('LShoulder', 'LShoulderYaw') #FIXME
+#  addBody('RShoulder', 'RShoulderYaw') #FIXME
+#
+#  addBody('LWristRoll_link', 'LWristRoll') #FIXME
+#  addBody('RWristRoll_link', 'RWristRoll') #FIXME
+#
+#  addBody('torso', 'Torso') #FIXME
 
   return fileByBodyName
 
@@ -270,8 +319,8 @@ def convexHull(files, mb):
 
   convexFiles = {name: (bodyName, os.path.join(convexPath, filename + '-ch.txt'))
                  for name, (bodyName, filename) in files.iteritems()}
-  print "convex", convexFiles
-  print 'nr bodies', mb.nrBodies()
+#  print "convex", convexFiles
+#  print 'nr bodies', mb.nrBodies()
   return convexFiles
 
 
@@ -282,8 +331,10 @@ def stpbvHull(files, mb):
   """
   stpbvPath = os.path.join(path, 'stpbv')
 
-  stpbvFiles = {name: (bodyName, os.path.join(stpbvPath, filename + '.txt'))
-                 for name, (bodyName, filename) in files.iteritems()}
+  #TODO: add stpbv and re-enable
+  stpbvFiles = {}
+#  stpbvFiles = {name: (bodyName, os.path.join(stpbvPath, filename + '.txt'))
+#                 for name, (bodyName, filename) in files.iteritems()}
 
   return stpbvFiles
 
