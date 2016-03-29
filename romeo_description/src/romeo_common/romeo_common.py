@@ -34,7 +34,7 @@ virtualJoints = [
   'CameraRight_optical_frame_fixedjoint',
   'CameraRightEye_optical_frame_fixedjoint',
   'RFoot/FSR/ToeFrontRight_sensor_fixedjoint',
-  'RFoot/FSR/HeelRight_sensor_fixedjoint', 
+  'RFoot/FSR/HeelRight_sensor_fixedjoint',
   'RFoot/FSR/ToeRearLeft_sensor_fixedjoint',
   'AccelerometerDownTorso_sensor_fixedjoint',
   'LFoot/FSR/ToeRearRight_sensor_fixedjoint',
@@ -45,13 +45,13 @@ virtualJoints = [
   'LFoot/FSR/CenterRear_sensor_fixedjoint',
   'CameraLeft_sensor_fixedjoint',
   'CameraLeft_optical_frame_fixedjoint',
-  'LFoot/FSR/ToeFrontRight_sensor_fixedjoint', 
-  'RFoot/FSR/HeelLeft_sensor_fixedjoint', 
-  'AccelerometerHead_sensor_fixedjoint', 
-  'LFoot/FSR/CenterFront_sensor_fixedjoint', 
+  'LFoot/FSR/ToeFrontRight_sensor_fixedjoint',
+  'RFoot/FSR/HeelLeft_sensor_fixedjoint',
+  'AccelerometerHead_sensor_fixedjoint',
+  'LFoot/FSR/CenterFront_sensor_fixedjoint',
   'RFoot/FSR/ToeFrontLeft_sensor_fixedjoint',
-  'LFoot/FSR/ToeFrontLeft_sensor_fixedjoint', 
-  'CameraDepth_joint', 
+  'LFoot/FSR/ToeFrontLeft_sensor_fixedjoint',
+  'CameraDepth_joint',
   'Cap_joint'
 ]
 
@@ -95,42 +95,42 @@ accelBody = "torso"
 
 halfSitting = { #TODO
   "NeckYaw": 0.,
-  "NeckPitch": 0., 
+  "NeckPitch": 0.,
   "HeadPitch": 0.,
-  "HeadRoll": 0., 
-  "LHipYaw": 0., 
-  "LHipRoll": 0., 
-  "LHipPitch": -0.0929, 
-  "LKneePitch": 0.2565, 
-  "LAnklePitch": -0.163522, 
-  "LAnkleRoll": 0., 
-  "RHipYaw": 0., 
-  "RHipRoll": 0., 
-  "RHipPitch": -0.0929,  
-  "RKneePitch": 0.2565, 
-  "RAnklePitch":-0.163522, 
-  "RAnkleRoll": 0., 
-  "TrunkYaw": 0., 
-  "LShoulderPitch": 1.75, 
-  "LShoulderYaw": 0., 
-  "LElbowRoll": -1.30, 
-  "LElbowYaw": -0.35, 
-  "LWristRoll": 0., 
-  "LWristYaw": 0., 
-  "LWristPitch": 0., 
-  "LHand": 0., 
-  "RShoulderPitch": 1.75, 
-  "RShoulderYaw": 0., 
-  "RElbowRoll": 1.30, 
-  "RElbowYaw": 0.17, 
-  "RWristRoll": 0.35, 
-  "RWristYaw": 0., 
-  "RWristPitch": 0., 
-  "RHand": 0., 
-  "LEyeYaw": 0., 
-  "LEyePitch": 0., 
-  "REyeYaw": 0., 
-  "REyePitch": 0., 
+  "HeadRoll": 0.,
+  "LHipYaw": 0.,
+  "LHipRoll": 0.,
+  "LHipPitch": -0.0929,
+  "LKneePitch": 0.2565,
+  "LAnklePitch": -0.163522,
+  "LAnkleRoll": 0.,
+  "RHipYaw": 0.,
+  "RHipRoll": 0.,
+  "RHipPitch": -0.0929,
+  "RKneePitch": 0.2565,
+  "RAnklePitch":-0.163522,
+  "RAnkleRoll": 0.,
+  "TrunkYaw": 0.,
+  "LShoulderPitch": 1.75,
+  "LShoulderYaw": 0.,
+  "LElbowRoll": -1.30,
+  "LElbowYaw": -0.35,
+  "LWristRoll": 0.,
+  "LWristYaw": 0.,
+  "LWristPitch": 0.,
+  "LHand": 0.,
+  "RShoulderPitch": 1.75,
+  "RShoulderYaw": 0.,
+  "RElbowRoll": 1.30,
+  "RElbowYaw": 0.17,
+  "RWristRoll": 0.35,
+  "RWristYaw": 0.,
+  "RWristPitch": 0.,
+  "RHand": 0.,
+  "LEyeYaw": 0.,
+  "LEyePitch": 0.,
+  "REyeYaw": 0.,
+  "REyePitch": 0.,
   "LFinger11": 0.,
   "LFinger12": 0.,
   "LFinger13": 0.,
@@ -221,51 +221,51 @@ def stdCollisionsFiles(mb):
 
   def addBody(bodyName, file):
     fileByBodyName[bodyName] = (bodyName, file)
-    
+
   # The mismatched names of the Body and convex files
   addBody('body', 'TrunkYaw')
   addBody('torso', 'Torso')
-  
-  addBody('LThigh', 'LHipPitch')  
+
+  addBody('LThigh', 'LHipPitch')
   addBody('RThigh', 'RHipPitch')
-  
+
   addBody('LTibia', 'LKneePitch')
   addBody('RTibia', 'RKneePitch')
 
   addBody('l_ankle', 'LAnkleRoll')
   addBody('r_ankle', 'RAnkleRollBasic') #TODO: why Basic?
-  
+
   addBody('l_wrist', 'LWristPitch')
   addBody('r_wrist', 'RWristPitch')
-  
+
   addBody('LElbow', 'LElbowYaw')
   addBody('RElbow', 'RElbowYaw')
-  
+
 
   #TODO: unsure, no daes for these? took the next closest instead
   addBody('HeadPitch_link', 'HeadRoll')
-  addBody('NeckYaw_link', 'NeckPitch') 
+  addBody('NeckYaw_link', 'NeckPitch')
 
   addBody('LShoulder', 'LShoulderYaw')
   addBody('RShoulder', 'RShoulderYaw')
-  
+
   addBody('LForeArm', 'LElbowYaw')
   addBody('RForeArm', 'RElbowYaw')
-  
+
   addBody('LEyeYaw_link', 'LEye')
   addBody('REyeYaw_link', 'REye')
 
-  addBody('LHipYaw_link', 'LHipPitch')  
+  addBody('LHipYaw_link', 'LHipPitch')
   addBody('RHipYaw_link', 'RHipPitch')
-  
+
   addBody('LHip', 'LHipPitch')
   addBody('RHip', 'RHipPitch')
-  
+
   addBody('LAnklePitch_link', 'LAnkleRoll')
   addBody('RAnklePitch_link', 'RAnkleRollBasic') #TODO: why Basic?
 
   #TODO: handle with merging the hand and fingers
-  addBody('l_gripper', 'LThumb1') 
+  addBody('l_gripper', 'LThumb1')
   addBody('r_gripper', 'RThumb1')
 
   # loop over all the fingers
@@ -273,7 +273,7 @@ def stdCollisionsFiles(mb):
     for n in range(1,4):
       for m in range(1,4):
         num = str(n)+str(m)
-        addBody((side+'Finger'+num+'_link'), (side+'Finger'+num)) 
+        addBody((side+'Finger'+num+'_link'), (side+'Finger'+num))
 
 
 #  addBody('l_gripper', 'LWristPitch') #FIXME
