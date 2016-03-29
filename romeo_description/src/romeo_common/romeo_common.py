@@ -110,7 +110,7 @@ halfSitting = { #TODO
   "RKneePitch": 0.2565,
   "RAnklePitch":-0.163522,
   "RAnkleRoll": 0.,
-  "TrunkYaw": 0.3,
+  "TrunkYaw": 0.,
   "LShoulderPitch": 1.75,
   "LShoulderYaw": 0.,
   "LElbowRoll": -1.30,
@@ -118,7 +118,7 @@ halfSitting = { #TODO
   "LWristRoll": -0.17,
   "LWristYaw": -0.35,
   "LWristPitch": 0.,
-  "LHand": 0.,
+  "LHand": 0.5,
   "RShoulderPitch": 1.75,
   "RShoulderYaw": 0.,
   "RElbowRoll": 1.30,
@@ -126,7 +126,7 @@ halfSitting = { #TODO
   "RWristRoll": 0.35,
   "RWristYaw": 0.,
   "RWristPitch": 0.,
-  "RHand": 0.,
+  "RHand": 0.5,
   "LEyeYaw": 0.,
   "LEyePitch": 0.,
   "REyeYaw": 0.,
@@ -221,7 +221,7 @@ def stdCollisionsFiles(mb):
   addBody('RTibia', 'RKneePitch')
 
   addBody('l_ankle', 'LAnkleRoll')
-  addBody('r_ankle', 'RAnkleRoll') 
+  addBody('r_ankle', 'RAnkleRoll')
 
   addBody('l_wrist', 'LWristPitch')
   addBody('r_wrist', 'RWristPitch')
@@ -275,8 +275,6 @@ def convexHull(files, mb):
 
   convexFiles = {name: (bodyName, os.path.join(convexPath, filename + '-ch.txt'))
                  for name, (bodyName, filename) in files.iteritems()}
-#  print "convex", convexFiles
-#  print 'nr bodies', mb.nrBodies()
   return convexFiles
 
 
