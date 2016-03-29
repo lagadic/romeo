@@ -110,13 +110,13 @@ halfSitting = { #TODO
   "RKneePitch": 0.2565,
   "RAnklePitch":-0.163522,
   "RAnkleRoll": 0.,
-  "TrunkYaw": 0.,
+  "TrunkYaw": 0.3,
   "LShoulderPitch": 1.75,
   "LShoulderYaw": 0.,
   "LElbowRoll": -1.30,
   "LElbowYaw": -0.35,
-  "LWristRoll": 0.,
-  "LWristYaw": 0.,
+  "LWristRoll": -0.17,
+  "LWristYaw": -0.35,
   "LWristPitch": 0.,
   "LHand": 0.,
   "RShoulderPitch": 1.75,
@@ -167,8 +167,6 @@ def readUrdf(robotName, rootBodyName, filteredJoints, mergedJoints,
     mc_rbdyn_urdf.rbdyn_from_urdf(urdf, fixed=False, baseLink='base_link')
 
   # sort half sitting by id
-  print 'GIO rootBodyId ==========', rootBodyName
-  print 'GIO Starting halfSittingById =========='
   rootBodyId = mbg.bodyIdByName(rootBodyName)
   halfSittingById = []
   for name, value in halfSittingByName.items():
@@ -178,26 +176,16 @@ def readUrdf(robotName, rootBodyName, filteredJoints, mergedJoints,
     except Exception:
       pass
 
-  print 'GIO halfSittingById ==========', halfSittingById
-  print 'GIO nr bodies ++++++++++++++++++++++++++++', mb.nrBodies()
-  print 'GIO filteredJoints ++++++++++++++++++++++++++++', filteredJoints
-  print 'GIO &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
-  print 'GIO mbg.nrNodes ++++++++++++++++++++++++++++', mbg.nrNodes()
   # remove filtered joints and merge joints with theirs parents
   mbg.removeJoints(rootBodyId, filteredJoints)
-  print 'GIO &&&&&&&&&&&&&&&&&&&&& removeJoints &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
-  print 'GIO mbg.nrNodes ++++++++++++++++++++++++++++', mbg.nrNodes()
+
   for mj in mergedJoints:
     mbg.mergeSubBodies(rootBodyId, mj, halfSittingById)
   # regenerate the MultiBody and the MultiBodyConfig
-  print 'GIO mergedJoints ++++++++++++++++++++++++++++', mergedJoints
-  print 'GIO &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
-  print 'GIO mbg.nrNodes ++++++++++++++++++++++++++++', mbg.nrNodes()
-  print 'GIO rootBodyId ==========', rootBodyId
+
   mb = mbg.makeMultiBody(rootBodyId, False)
   mbc = rbd.MultiBodyConfig(mb)
   mbc.zero(mb)
-  print 'GIO nr bodies ---------------------------', mb.nrBodies()
   return mb, mbc, mbg, limits, visual_tf, collision_tf
 
 
@@ -233,7 +221,7 @@ def stdCollisionsFiles(mb):
   addBody('RTibia', 'RKneePitch')
 
   addBody('l_ankle', 'LAnkleRoll')
-  addBody('r_ankle', 'RAnkleRollBasic') #TODO: why Basic?
+  addBody('r_ankle', 'RAnkleRoll') 
 
   addBody('l_wrist', 'LWristPitch')
   addBody('r_wrist', 'RWristPitch')
@@ -262,7 +250,7 @@ def stdCollisionsFiles(mb):
   addBody('RHip', 'RHipPitch')
 
   addBody('LAnklePitch_link', 'LAnkleRoll')
-  addBody('RAnklePitch_link', 'RAnkleRollBasic') #TODO: why Basic?
+  addBody('RAnklePitch_link', 'RAnkleRoll')
 
   #TODO: handle with merging the hand and fingers
   addBody('l_gripper', 'LThumb1')
@@ -274,38 +262,6 @@ def stdCollisionsFiles(mb):
       for m in range(1,4):
         num = str(n)+str(m)
         addBody((side+'Finger'+num+'_link'), (side+'Finger'+num))
-
-
-#  addBody('l_gripper', 'LWristPitch') #FIXME
-#  addBody('r_gripper', 'LWristPitch') #FIXME
-#  addBody('LHipYaw_link', 'LHipPitch') #FIXME
-#  addBody('RHipYaw_link', 'RHipPitch') #FIXME
-#  addBody('RWristYaw_link', 'RWristYaw') #FIXME
-#  addBody('LWristYaw_link', 'LWristYaw') #FIXME
-#  addBody('RAnklePitch_link', 'RAnkleRoll') #FIXME
-#  addBody('LAnklePitch_link', 'LAnkleRoll') #FIXME
-#  addBody('r_ankle', 'RAnkleRoll') #FIXME
-#  addBody('l_ankle', 'LAnkleRoll') #FIXME
-#  addBody('l_wrist', 'LWristPitch') #FIXME
-#  addBody('r_wrist', 'RWristPitch') #FIXME
-#  addBody('LTibia', 'LKneePitch') #FIXME
-#  addBody('RTibia', 'RKneePitch') #FIXME
-#  addBody('RShoulderYaw_link', 'RShoulderYaw') #FIXME
-#  addBody('LShoulderYaw_link', 'LShoulderYaw') #FIXME
-#  addBody('LElbow', 'LElbowYaw') #FIXME
-#  addBody('RElbow', 'RElbowYaw') #FIXME
-#  addBody('body', 'TrunkYaw') #FIXME
-#  addBody('LForeArm', 'LElbowYaw') #FIXME
-#  addBody('RForeArm', 'RElbowYaw') #FIXME
-#  addBody('RHip', 'RHipPitch') #FIXME
-#  addBody('LHip', 'LHipPitch') #FIXME
-#  addBody('LShoulder', 'LShoulderYaw') #FIXME
-#  addBody('RShoulder', 'RShoulderYaw') #FIXME
-#
-#  addBody('LWristRoll_link', 'LWristRoll') #FIXME
-#  addBody('RWristRoll_link', 'RWristRoll') #FIXME
-#
-#  addBody('torso', 'Torso') #FIXME
 
   return fileByBodyName
 
