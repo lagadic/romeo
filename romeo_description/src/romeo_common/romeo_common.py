@@ -93,7 +93,7 @@ rootBody = 'torso'
 accelBody = "torso"
 
 
-halfSitting = { #TODO
+halfSitting = {
   "NeckYaw": 0.,
   "NeckPitch": 0.,
   "HeadPitch": 0.,
@@ -114,9 +114,9 @@ halfSitting = { #TODO
   "LShoulderPitch": 1.75,
   "LShoulderYaw": 0.,
   "LElbowRoll": -1.30,
-  "LElbowYaw": -0.35,
-  "LWristRoll": -0.17,
-  "LWristYaw": -0.35,
+  "LElbowYaw": -0.17,
+  "LWristRoll": -0.35,
+  "LWristYaw": -0.,
   "LWristPitch": 0.,
   "LHand": 0.5,
   "RShoulderPitch": 1.75,
