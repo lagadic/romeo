@@ -285,10 +285,8 @@ def stpbvHull(files, mb):
   """
   stpbvPath = os.path.join(path, 'stpbv')
 
-  #TODO: add stpbv and re-enable
-  stpbvFiles = {}
-#  stpbvFiles = {name: (bodyName, os.path.join(stpbvPath, filename + '.txt'))
-#                 for name, (bodyName, filename) in files.iteritems()}
+  stpbvFiles = {name: (bodyName, os.path.join(stpbvPath, filename + '.txt'))
+                 for name, (bodyName, filename) in files.iteritems()}
 
   return stpbvFiles
 
