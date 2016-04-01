@@ -57,30 +57,16 @@ virtualJoints = [
 
 
 handJoints = [
+  'LHand',
+  'RHand',
   'LThumb1',
-  'LThumb2',
-  'LThumb3',
   'LFinger11',
-  'LFinger12',
-  'LFinger13',
   'LFinger21',
-  'LFinger22',
-  'LFinger23',
   'LFinger31',
-  'LFinger32',
-  'LFinger33', # New:
   'RThumb1',
-  'RThumb2',
-  'RThumb3',
   'RFinger11',
-  'RFinger12',
-  'RFinger13',
   'RFinger21',
-  'RFinger22',
-  'RFinger23',
   'RFinger31',
-  'RFinger32',
-  'RFinger33'
 ]
 
 
