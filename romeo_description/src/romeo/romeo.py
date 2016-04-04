@@ -6,7 +6,7 @@ import romeo_common
 
 mb, mbc, mbg, limits, visual_tf, collision_tf =\
   romeo_common.readUrdf('romeo', romeo_common.rootBody,
-                       romeo_common.virtualJoints, romeo_common.handJoints,
+                       romeo_common.virtualJoints+romeo_common.handJoints, romeo_common.handJoints,
                        romeo_common.halfSitting)
 
 

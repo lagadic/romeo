@@ -104,7 +104,7 @@ halfSitting = {
   "LWristRoll": -0.35,
   "LWristYaw": -0.,
   "LWristPitch": 0.,
-  "LHand": 0.5,
+  "LHand": 0.1,
   "RShoulderPitch": 1.75,
   "RShoulderYaw": 0.,
   "RElbowRoll": 1.30,
@@ -112,35 +112,35 @@ halfSitting = {
   "RWristRoll": 0.35,
   "RWristYaw": 0.,
   "RWristPitch": 0.,
-  "RHand": 0.5,
+  "RHand": 0.9,
   "LEyeYaw": 0.,
   "LEyePitch": 0.,
   "REyeYaw": 0.,
   "REyePitch": 0.,
-  "LFinger11": 0.,
-  "LFinger12": 0.,
-  "LFinger13": 0.,
-  "LFinger21": 0.,
-  "LFinger22": 0.,
-  "LFinger23": 0.,
-  "LFinger31": 0.,
-  "LFinger32": 0.,
-  "LFinger33": 0.,
-  "LThumb1": 0.,
-  "LThumb2": 0.,
-  "LThumb3": 0.,
-  "RFinger11": 0.,
-  "RFinger12": 0.,
-  "RFinger13": 0.,
-  "RFinger21": 0.,
-  "RFinger22": 0.,
-  "RFinger23": 0.,
-  "RFinger31": 0.,
-  "RFinger32": 0.,
-  "RFinger33": 0.,
-  "RThumb1": 0.,
-  "RThumb2": 0.,
-  "RThumb3": 0.,
+  # "LFinger11": 0.,
+  # "LFinger12": 0.,
+  # "LFinger13": 0.,
+  # "LFinger21": 0.,
+  # "LFinger22": 0.,
+  # "LFinger23": 0.,
+  # "LFinger31": 0.,
+  # "LFinger32": 0.,
+  # "LFinger33": 0.,
+  # "LThumb1": 0.,
+  # "LThumb2": 0.,
+  # "LThumb3": 0.,
+  # "RFinger11": 0.,
+  # "RFinger12": 0.,
+  # "RFinger13": 0.,
+  # "RFinger21": 0.,
+  # "RFinger22": 0.,
+  # "RFinger23": 0.,
+  # "RFinger31": 0.,
+  # "RFinger32": 0.,
+  # "RFinger33": 0.,
+  # "RThumb1": 0.,
+  # "RThumb2": 0.,
+  # "RThumb3": 0.,
 }
 
 
@@ -209,8 +209,8 @@ def stdCollisionsFiles(mb):
   addBody('l_ankle', 'LAnkleRoll')
   addBody('r_ankle', 'RAnkleRoll')
 
-  addBody('l_wrist', 'LWristPitch')
-  addBody('r_wrist', 'RWristPitch')
+  addBody('l_wrist', 'LHand')
+  addBody('r_wrist', 'RHand')
 
   addBody('LElbow', 'LElbowYaw')
   addBody('RElbow', 'RElbowYaw')
