@@ -22,7 +22,7 @@
       </inertial>
       <visual>
         <geometry>
-          <mesh filename="package://romeo_description/meshes/Cap.dae" scale="1 1 1"/>
+          <mesh filename="package://romeo_description_mc/meshes/Cap.dae" scale="1 1 1"/>
         </geometry>
         <origin rpy="0 0 0" xyz="0 0 0"/>
       </visual>

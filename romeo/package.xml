@@ -14,7 +14,6 @@
     <metapackage/>
   </export>
 
-  <run_depend>romeo_description</run_depend>
-  <run_depend>romeo_sensors_py</run_depend>
+  <run_depend>romeo_description_mc</run_depend>
 
 </package>

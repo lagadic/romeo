@@ -1,4 +1,4 @@
-import roslib; roslib.load_manifest('romeo_description')
+import roslib; roslib.load_manifest('romeo_description_mc')
 
 import os
 
@@ -11,7 +11,7 @@ import rbdyn as rbd
 import mc_rbdyn_urdf
 
 
-path = roslib.packages.get_pkg_dir('romeo_description')
+path = roslib.packages.get_pkg_dir('romeo_description_mc')
 
 
 virtualJoints = [

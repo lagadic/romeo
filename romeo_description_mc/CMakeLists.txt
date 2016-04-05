@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(romeo_description)
+project(romeo_description_mc)
 
 # We need to find catkin for the rest of the script to work
 find_package(catkin REQUIRED COMPONENTS
