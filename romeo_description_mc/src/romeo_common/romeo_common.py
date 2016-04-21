@@ -17,8 +17,8 @@ path = roslib.packages.get_pkg_dir('romeo_description_mc')
 virtualJoints = [
   'l_wrist',
   'r_wrist',
-  'l_gripper', # FIXME not sure if needed here
-  'r_gripper', # FIXME
+  'l_gripper',
+  'r_gripper',
   'base_link_fixedjoint',
   'gaze_joint',
   'LLeg_effector_fixedjoint',
@@ -117,30 +117,34 @@ halfSitting = {
   "LEyePitch": 0.,
   "REyeYaw": 0.,
   "REyePitch": 0.,
-  # "LFinger11": 0.,
-  # "LFinger12": 0.,
-  # "LFinger13": 0.,
-  # "LFinger21": 0.,
-  # "LFinger22": 0.,
-  # "LFinger23": 0.,
-  # "LFinger31": 0.,
-  # "LFinger32": 0.,
-  # "LFinger33": 0.,
-  # "LThumb1": 0.,
-  # "LThumb2": 0.,
-  # "LThumb3": 0.,
-  # "RFinger11": 0.,
-  # "RFinger12": 0.,
-  # "RFinger13": 0.,
-  # "RFinger21": 0.,
-  # "RFinger22": 0.,
-  # "RFinger23": 0.,
-  # "RFinger31": 0.,
-  # "RFinger32": 0.,
-  # "RFinger33": 0.,
-  # "RThumb1": 0.,
-  # "RThumb2": 0.,
-  # "RThumb3": 0.,
+
+  "LFinger11": 0.,
+  "LFinger12": 0.,
+  "LFinger13": 0.,
+  "LFinger21": 0.,
+  "LFinger22": 0.,
+  "LFinger23": 0.,
+  "LFinger31": 0.,
+  "LFinger32": 0.,
+  "LFinger33": 0.,
+
+  "LThumb1": 0.,
+  "LThumb2": 0.,
+  "LThumb3": 0.,
+
+  "RFinger11": 0.,
+  "RFinger12": 0.,
+  "RFinger13": 0.,
+  "RFinger21": 0.,
+  "RFinger22": 0.,
+  "RFinger23": 0.,
+  "RFinger31": 0.,
+  "RFinger32": 0.,
+  "RFinger33": 0.,
+
+  "RThumb1": 0.,
+  "RThumb2": 0.,
+  "RThumb3": 0.,
 }
 
 
@@ -164,11 +168,10 @@ def readUrdf(robotName, rootBodyName, filteredJoints, mergedJoints,
 
   # remove filtered joints and merge joints with theirs parents
   mbg.removeJoints(rootBodyId, filteredJoints)
-
   for mj in mergedJoints:
     mbg.mergeSubBodies(rootBodyId, mj, halfSittingById)
-  # regenerate the MultiBody and the MultiBodyConfig
 
+  # regenerate the MultiBody and the MultiBodyConfig
   mb = mbg.makeMultiBody(rootBodyId, False)
   mbc = rbd.MultiBodyConfig(mb)
   mbc.zero(mb)
