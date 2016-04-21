@@ -84,19 +84,23 @@ halfSitting = {
   "NeckPitch": 0.,
   "HeadPitch": 0.,
   "HeadRoll": 0.,
+
   "LHipYaw": 0.,
   "LHipRoll": 0.,
-  "LHipPitch": -0.0929,
-  "LKneePitch": 0.2565,
-  "LAnklePitch": -0.163522,
+  "LHipPitch": -0.3490658,
+  "LKneePitch": 0.6981317,
+  "LAnklePitch": -0.3490658,
   "LAnkleRoll": 0.,
+
   "RHipYaw": 0.,
   "RHipRoll": 0.,
-  "RHipPitch": -0.0929,
-  "RKneePitch": 0.2565,
-  "RAnklePitch":-0.163522,
+  "RHipPitch": -0.3490658,
+  "RKneePitch": 0.6981317,
+  "RAnklePitch": -0.3490658,
   "RAnkleRoll": 0.,
+
   "TrunkYaw": 0.,
+
   "LShoulderPitch": 1.75,
   "LShoulderYaw": 0.,
   "LElbowRoll": -1.30,
@@ -105,6 +109,7 @@ halfSitting = {
   "LWristYaw": -0.,
   "LWristPitch": 0.,
   "LHand": 0.1,
+
   "RShoulderPitch": 1.75,
   "RShoulderYaw": 0.,
   "RElbowRoll": 1.30,
@@ -113,6 +118,7 @@ halfSitting = {
   "RWristYaw": 0.,
   "RWristPitch": 0.,
   "RHand": 0.9,
+
   "LEyeYaw": 0.,
   "LEyePitch": 0.,
   "REyeYaw": 0.,
@@ -127,7 +133,6 @@ halfSitting = {
   "LFinger31": 0.,
   "LFinger32": 0.,
   "LFinger33": 0.,
-
   "LThumb1": 0.,
   "LThumb2": 0.,
   "LThumb3": 0.,
@@ -141,7 +146,6 @@ halfSitting = {
   "RFinger31": 0.,
   "RFinger32": 0.,
   "RFinger33": 0.,
-
   "RThumb1": 0.,
   "RThumb2": 0.,
   "RThumb3": 0.,
