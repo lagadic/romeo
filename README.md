@@ -1,4 +1,4 @@
-romeo_robot
+Romeo Description for Multi-Contact
 ===========
 
-ROS stack for Aldebaran's Romeo robot
+URDF, collision files and surfaces 
